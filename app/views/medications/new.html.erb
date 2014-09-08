@@ -1,4 +1,16 @@
-<%= form_for @medication do |f|%>
+<h1>Add a medication to <%= @patient.first_name %> <%= @patient.last_name %></h1>
+
+
+
+<%= form_for @medication, url: patient_medications_path(@patient) do |f|%>
+  <% if @medication.errors.any? %>
+    <span class="error"><%= flash[:notice] %></span>
+    <% @medication.errors.full_messages.each do |error| %>
+    <ul>
+      <li class="error"><%= error %></li>
+    </ul>
+    <% end %>
+<% end %>
   <div><%= f.label :name %>
   <%= f.select(:name, @medications.map{|medication| [medication.name]}) %>
   </div>
@@ -16,7 +28,7 @@
   <div>
     <%= select_date Date.today, prefix: :end_date %>
   </div>
-  <%= f.hidden_field :patient_id, value: @patient_id %>
+  <%= f.hidden_field :patient_id, value: @patient.id %>
 
   <%= f.submit 'Create Prescription' %>
 <% end %>

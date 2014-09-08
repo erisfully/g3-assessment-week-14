@@ -2,14 +2,17 @@ class MedicationsController < ApplicationController
 
   def new
     @medication = Medication.new
-    @patient_id = params[:id]
+    @patient = Patient.find(params[:patient_id])
     @medications = Medication.all
   end
 
   def create
     @medications = Medication.all
+    @patient = Patient.find(params[:patient_id])
+
     @start_date = Date.new(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i)
     @end_date = Date.new(params[:end_date][:year].to_i, params[:end_date][:month].to_i, params[:end_date][:day].to_i)
+
     @medication = Medication.create(
       name: params[:medication][:name],
       dosage: params[:medication][:dosage],
@@ -22,7 +25,8 @@ class MedicationsController < ApplicationController
       flash[:notice] = "Your prescription has been created"
       redirect_to patient_path(:id => params[:medication][:patient_id])
     else
-     redirect_to "/patients/#{params[:medication][:patient_id]}/medications/new"
+      flash[:notice] = "Your prescription could not be saved"
+      render 'new'
     end
   end
 end

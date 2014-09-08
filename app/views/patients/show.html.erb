@@ -4,7 +4,7 @@
 
 <h1><%= "#{@patient.first_name} #{@patient.last_name}" %></h1>
 
-<%= link_to 'Add a new prescription', "/patients/#{@patient.id}/medications/new" %>
+<%= link_to 'Add a new prescription', new_patient_medication_path(@patient) %>
 
 <table>Prescriptions</table>
 <tr>
