@@ -1,8 +1,15 @@
+<%= flash[:notice] %>
+
 <h1><%= "#{@patient.first_name} #{@patient.last_name}" %></h1>
+
+<%= link_to 'Add a new prescription', "/patients/#{@patient.id}/medications/new" %>
 
 <table>Prescriptions</table>
 <tr>
-  <td>
-
-  </td>
+  <% @medications.each do |medication| %>
+    <td><%= medication.name %></td>
+    <td><%= medication.dosage %></td>
+  <% end %>
 </tr>
+
+

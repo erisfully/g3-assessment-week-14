@@ -1,0 +1,22 @@
+<%= form_for @medication do |f|%>
+  <div><%= f.label :name %>
+  <%= f.select(:name, @medications.map{|medication| [medication.name]}) %>
+  </div>
+  <div>
+    <%= f.label :dosage %>
+    <%= f.text_field :dosage  %>
+  </div>
+  <div>
+    <%= f.label :schedule %>
+    <%= f.text_field :schedule  %>
+  </div>
+  <div>
+    <%= select_date Date.today, prefix: :start_date %>
+  </div>
+  <div>
+    <%= select_date Date.today, prefix: :end_date %>
+  </div>
+  <%= f.hidden_field :patient_id, value: @patient_id %>
+
+  <%= f.submit 'Create Prescription' %>
+<% end %>
