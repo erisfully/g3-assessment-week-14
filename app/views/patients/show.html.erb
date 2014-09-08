@@ -1,4 +1,6 @@
-<span class="notice"><%= flash[:notice] %></span>
+<% if flash[:notice] %>
+  <span class="notice"><%= flash[:notice] %></span>
+<% end %>
 
 <h1><%= "#{@patient.first_name} #{@patient.last_name}" %></h1>
 

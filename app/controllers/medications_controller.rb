@@ -7,6 +7,7 @@ class MedicationsController < ApplicationController
   end
 
   def create
+    @medications = Medication.all
     @start_date = Date.new(params[:start_date][:year].to_i, params[:start_date][:month].to_i, params[:start_date][:day].to_i)
     @end_date = Date.new(params[:end_date][:year].to_i, params[:end_date][:month].to_i, params[:end_date][:day].to_i)
     @medication = Medication.create(
@@ -21,7 +22,7 @@ class MedicationsController < ApplicationController
       flash[:notice] = "Your prescription has been created"
       redirect_to patient_path(:id => params[:medication][:patient_id])
     else
-      render 'new'
+     redirect_to "/patients/#{params[:medication][:patient_id]}/medications/new"
     end
   end
 end
